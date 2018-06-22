@@ -2,7 +2,28 @@ let restaurants,
   neighborhoods,
   cuisines
 var newMap
-var markers = []
+var markers = [];
+const hamburgerMenu = document.getElementById('menu-mobile');
+const filtersOptions = document.querySelector('.filter-options');
+let menuClickBlock = false;
+
+//this "checks" which Animation End handle the browser accept
+//and assigns it in the constant animationEnd - See https://github.com/daneden/animate.css/issues/644
+//used to chain animationend
+const animationEnd = (function (el) {
+  const animations = {
+      animation: 'animationend',
+      OAnimation: 'oAnimationEnd',
+      MozAnimation: 'mozAnimationEnd',
+      WebkitAnimation: 'webkitAnimationEnd'
+  };
+
+  for (let t in animations) {
+      if (el.style[t] !== undefined) {
+          return animations[t];
+      }
+  }
+})(document.createElement('div'));
 
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
@@ -212,3 +233,35 @@ addMarkersToMap = (restaurants = self.restaurants) => {
   });
 } */
 
+/*
+ *Toggle the mobile menu
+*/ 
+
+filtersOptions.addEventListener(animationEnd, function() {
+  if (this.classList.contains('slideInLeft')) {
+    this.classList.remove('slideInLeft');
+  } else if (this.classList.contains('slideOutRight')) {
+    this.classList.add('hidden');
+    this.classList.remove('slideOutRight');
+  }
+});
+
+hamburgerMenu.addEventListener('click', ()=>{
+  if (menuClickBlock) return;
+  menuClickBlock = true;
+  if (filtersOptions.classList.contains('hidden')) {
+    filtersOptions.classList.remove('hidden');
+    filtersOptions.classList.add('slideInLeft');
+  } else {
+    filtersOptions.classList.add('slideOutRight');
+  }
+  window.setTimeout(()=>menuClickBlock=false,1050);
+})
+
+/*
+ *TODO:
+  -fix fucking footer
+  -hamburger button is not a button fix it
+  -hamburger button must rotate on click
+  -remove tabindex from the map
+*/
