@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
@@ -12,33 +12,36 @@
 </head>
 
 <body>
+  <a href="#availiable-restaurants" class="skip-link">Skip to Restaurant List</a>
   <header>
     <nav>
       <h1>
         <a href="#">Restaurant Reviews</a>
       </h1>
-      <input id="menu-mobile" type="image" width="55" height="55" alt="Show Filters"
-       src="./img/icons8-menu-64.png" alt="menu" id="menu-mobile">
+      <!-- <input id="menu-mobile" type="image" width="55" height="55" alt="Show Filters"
+       src="./img/icons8-menu-64.png" alt="menu" id="menu-mobile"> -->
       <!-- <img src="./img/icons8-menu-64.png" alt="menu" id="menu-mobile"> -->
     </nav>
   </header>
 
   <main id="maincontent">
-    <section id="map-container" tabindex="-1">
-      <div id="map" tabindex="-1"></div>
+    <section id="map-container">
+      <div id="map" title="Map of New York"></div>
     </section>
 
-    <section class="filter-options animated hidden">
+    <section class="filter-options">
+      <!-- classes animated hidden where removed -->
       <h2>Filter Results</h2>
-      <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
+      <select id="neighborhoods-select" aria-label="Filter by Neighborhood" name="neighborhoods" onchange="updateRestaurants()">
         <option value="all">All Neighborhoods</option>
       </select>
-      <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
+      <select id="cuisines-select" aria-label="Filter by cuisine" name="cuisines" onchange="updateRestaurants()">
         <option value="all">All Cuisines</option>
       </select>
     </section>
 
     <section>
+      <h2 id="availiable-restaurants" tabindex="-1" aria-label="List of availiable restaurants">Availiable Restaurants</h2>
       <ul id="restaurants-list"></ul>
     </section>
     <footer id="footer">

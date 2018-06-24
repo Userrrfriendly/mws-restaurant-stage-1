@@ -179,13 +179,14 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
 createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
   
-  const name = document.createElement('h1');
+  const name = document.createElement('h3');
   name.innerHTML = restaurant.name;
   li.append(name);
 
   const image = document.createElement('img');
   image.className = 'restaurant-img';
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
+  image.alt = 'A photograph of the ' + restaurant.name + " restaurant";
   li.append(image);
 
   const neighborhood = document.createElement('p');
@@ -199,6 +200,7 @@ createRestaurantHTML = (restaurant) => {
   const more = document.createElement('a');
   more.innerHTML = 'View Details';
   more.href = DBHelper.urlForRestaurant(restaurant);
+  more.setAttribute('aria-label', restaurant.name);
   li.append(more)
 
   const hr = document.createElement('hr');
@@ -220,8 +222,22 @@ addMarkersToMap = (restaurants = self.restaurants) => {
     }
     self.markers.push(marker);
   });
+  DBHelper.removeLeafletTabindex();
+}
 
-} 
+removeLeafletTabindex = ()=> {
+  // let markers = document.querySelectorAll('.leaflet-marker-icon');
+  let attributionAnchors = document.querySelectorAll('.leaflet-control-attribution a');
+  // markers.forEach(element => {
+  //   element.setAttribute('tabindex',-1);
+  // });
+  attributionAnchors.forEach(element => {
+    // if (!(element.innerText === "OpenStreetMap")) {
+      // console.log(element.innerText);
+      element.setAttribute('tabindex', -1);
+    // }
+  });
+}
 /* addMarkersToMap = (restaurants = self.restaurants) => {
   restaurants.forEach(restaurant => {
     // Add marker to the map
@@ -261,7 +277,7 @@ hamburgerMenu.addEventListener('click', ()=>{
 /*
  *TODO:
   -fix fucking footer
-  -hamburger button is not a button fix it
+    -hamburger button is not a button fix it
   -hamburger button must rotate on click
   -remove tabindex from the map
 */

@@ -167,6 +167,20 @@ class DBHelper {
       marker.addTo(newMap);
     return marker;
   } 
+
+  static removeLeafletTabindex() {
+    // let markers = document.querySelectorAll('.leaflet-marker-icon');
+    let attributionAnchors = document.querySelectorAll('.leaflet-control-attribution a');
+    // markers.forEach(element => {
+    //   element.setAttribute('tabindex',-1);
+    // });
+    attributionAnchors.forEach(element => {
+      // if (!(element.innerText === "OpenStreetMap")) {
+        // console.log(element.innerText);
+        element.setAttribute('tabindex', -1);
+      // }
+    });
+  }
   /* static mapMarkerForRestaurant(restaurant, map) {
     const marker = new google.maps.Marker({
       position: restaurant.latlng,
