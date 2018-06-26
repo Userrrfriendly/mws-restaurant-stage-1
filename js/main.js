@@ -262,17 +262,17 @@ filtersOptions.addEventListener(animationEnd, function() {
   }
 });
 
-hamburgerMenu.addEventListener('click', ()=>{
-  if (menuClickBlock) return;
-  menuClickBlock = true;
-  if (filtersOptions.classList.contains('hidden')) {
-    filtersOptions.classList.remove('hidden');
-    filtersOptions.classList.add('slideInLeft');
-  } else {
-    filtersOptions.classList.add('slideOutRight');
-  }
-  window.setTimeout(()=>menuClickBlock=false,1050);
-})
+// hamburgerMenu.addEventListener('click', ()=>{
+//   if (menuClickBlock) return;
+//   menuClickBlock = true;
+//   if (filtersOptions.classList.contains('hidden')) {
+//     filtersOptions.classList.remove('hidden');
+//     filtersOptions.classList.add('slideInLeft');
+//   } else {
+//     filtersOptions.classList.add('slideOutRight');
+//   }
+//   window.setTimeout(()=>menuClickBlock=false,1050);
+// })
 
 /*
  *TODO:
