@@ -18,9 +18,6 @@
       <h1>
         <a href="#">Restaurant Reviews</a>
       </h1>
-      <!-- <input id="menu-mobile" type="image" width="55" height="55" alt="Show Filters"
-       src="./img/icons8-menu-64.png" alt="menu" id="menu-mobile"> -->
-      <!-- <img src="./img/icons8-menu-64.png" alt="menu" id="menu-mobile"> -->
     </nav>
   </header>
 
@@ -57,30 +54,14 @@
   <script type="application/javascript" charset="utf-8" src="js/main.js"></script>
   <script>
     if ('serviceWorker' in navigator) {
-      // console.log('service worker is online');
+      // console.log('[service worker is supported]');
       navigator.serviceWorker.register('sw.js');
     }
   </script>
-  <!-- <script type="application/javascript" charset="utf-8" src="js/sw/sw.js"></script> -->
 
-  <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places&callback=initMap"></script> -->
 
 
 
 </body>
 
 </html>
-
-
-<!-- <section class="filter">
-  <div class="filter-options">
-    <h2>Filter Results</h2>
-    <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
-      <option value="all">All Neighborhoods</option>
-    </select>
-    <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
-      <option value="all">All Cuisines</option>
-    </select>
-  </div>
-  <ul id="restaurants-list"></ul>
-</section> -->

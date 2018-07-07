@@ -1,5 +1,5 @@
 const cachePrefix = 'restaurant-review-app-';
-let cacheVersion = 'version-67';
+let cacheVersion = 'version-1';
 const urlsToCache = [
     '/',
     'css/styles.css',
@@ -48,19 +48,14 @@ self.addEventListener('install', event => {
     );
 });
 
-function fetchFromCache() {
-
-}
 
 self.addEventListener('activate', e => {
     console.log('[service-worker is beeing activated]');
-    // debugger;
     e.waitUntil(
         caches.keys().then(cacheNames => {
             return Promise.all(cacheNames.map(thisCacheName => {
                 if (thisCacheName.startsWith(cachePrefix)) {
                     console.log('[Service Worker is deleting items from: ' + cachePrefix + ']');
-                    console.log('[...old keys: ' + caches.keys + ']');
                     if (thisCacheName === cachePrefix + cacheVersion) {
                         return;
                     } else {
@@ -70,7 +65,6 @@ self.addEventListener('activate', e => {
             }))
         })
     )
-    console.log('...new keys: ' + caches.keys + ']');
 });
 
 self.addEventListener('fetch', e => {
@@ -78,20 +72,12 @@ self.addEventListener('fetch', e => {
     e.respondWith(
         caches.match(e.request.url).then((response) => {
             if (response) {
-                console.log('[service-worker is fetching a response from cache');
+                console.log('[service-worker is fetching a response from cache]');
                 return response;
             } else {
                 console.log('[service-worker FAILED to FETCH from cache( ' + response + ' ) and now goes to the network to fetch: ' + e.request.url);
                 return fetch(e.request);
             }
         })
-        // .catch((e)=>{
-        //     console.log('[service-worker FAILED to FETCH from cache and now goes to the network to fetch: ' + e.request);
-        //     return fetch(e.request);
-        // })
     );
 })
-
-/*
-    TODO: clean Cache
-*/

@@ -7,24 +7,6 @@ const hamburgerMenu = document.getElementById('menu-mobile');
 const filtersOptions = document.querySelector('.filter-options');
 let menuClickBlock = false;
 
-//this "checks" which Animation End handle the browser accept
-//and assigns it in the constant animationEnd - See https://github.com/daneden/animate.css/issues/644
-//used to chain animationend
-const animationEnd = (function (el) {
-  const animations = {
-      animation: 'animationend',
-      OAnimation: 'oAnimationEnd',
-      MozAnimation: 'mozAnimationEnd',
-      WebkitAnimation: 'webkitAnimationEnd'
-  };
-
-  for (let t in animations) {
-      if (el.style[t] !== undefined) {
-          return animations[t];
-      }
-  }
-})(document.createElement('div'));
-
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
@@ -94,10 +76,10 @@ fillCuisinesHTML = (cuisines = self.cuisines) => {
  */
 initMap = () => {
   self.newMap = L.map('map', {
-        center: [40.722216, -73.987501],
-        zoom: 12,
-        scrollWheelZoom: false
-      });
+    center: [40.722216, -73.987501],
+    zoom: 12,
+    scrollWheelZoom: false
+  });
   L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.jpg70?access_token={mapboxToken}', {
     mapboxToken: 'pk.eyJ1IjoidXNlcnJyIiwiYSI6ImNqMmZybWhzcjAwNTgycXBqdDd0ZDBrdWkifQ.bR755yLU4uLIg_65mzG6vA',
     maxZoom: 18,
@@ -109,18 +91,6 @@ initMap = () => {
 
   updateRestaurants();
 }
-/* window.initMap = () => {
-  let loc = {
-    lat: 40.722216,
-    lng: -73.987501
-  };
-  self.map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 12,
-    center: loc,
-    scrollwheel: false
-  });
-  updateRestaurants();
-} */
 
 /**
  * Update page and map for current restaurants.
@@ -136,7 +106,7 @@ updateRestaurants = () => {
   const neighborhood = nSelect[nIndex].value;
 
   DBHelper.fetchRestaurantByCuisineAndNeighborhood(cuisine, neighborhood, (error, restaurants) => {
-    if (error) { // Got an error!
+    if (error) {
       console.error(error);
     } else {
       resetRestaurants(restaurants);
@@ -178,7 +148,7 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
  */
 createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
-  
+
   const name = document.createElement('h3');
   name.innerHTML = restaurant.name;
   li.append(name);
@@ -217,6 +187,7 @@ addMarkersToMap = (restaurants = self.restaurants) => {
     // Add marker to the map
     const marker = DBHelper.mapMarkerForRestaurant(restaurant, self.newMap);
     marker.on("click", onClick);
+
     function onClick() {
       window.location.href = marker.options.url;
     }
@@ -225,59 +196,9 @@ addMarkersToMap = (restaurants = self.restaurants) => {
   DBHelper.removeLeafletTabindex();
 }
 
-removeLeafletTabindex = ()=> {
-  // let markers = document.querySelectorAll('.leaflet-marker-icon');
+removeLeafletTabindex = () => {
   let attributionAnchors = document.querySelectorAll('.leaflet-control-attribution a');
-  // markers.forEach(element => {
-  //   element.setAttribute('tabindex',-1);
-  // });
   attributionAnchors.forEach(element => {
-    // if (!(element.innerText === "OpenStreetMap")) {
-      // console.log(element.innerText);
-      element.setAttribute('tabindex', -1);
-    // }
+    element.setAttribute('tabindex', -1);
   });
 }
-/* addMarkersToMap = (restaurants = self.restaurants) => {
-  restaurants.forEach(restaurant => {
-    // Add marker to the map
-    const marker = DBHelper.mapMarkerForRestaurant(restaurant, self.map);
-    google.maps.event.addListener(marker, 'click', () => {
-      window.location.href = marker.url
-    });
-    self.markers.push(marker);
-  });
-} */
-
-/*
- *Toggle the mobile menu
-*/ 
-
-filtersOptions.addEventListener(animationEnd, function() {
-  if (this.classList.contains('slideInLeft')) {
-    this.classList.remove('slideInLeft');
-  } else if (this.classList.contains('slideOutRight')) {
-    this.classList.add('hidden');
-    this.classList.remove('slideOutRight');
-  }
-});
-
-// hamburgerMenu.addEventListener('click', ()=>{
-//   if (menuClickBlock) return;
-//   menuClickBlock = true;
-//   if (filtersOptions.classList.contains('hidden')) {
-//     filtersOptions.classList.remove('hidden');
-//     filtersOptions.classList.add('slideInLeft');
-//   } else {
-//     filtersOptions.classList.add('slideOutRight');
-//   }
-//   window.setTimeout(()=>menuClickBlock=false,1050);
-// })
-
-/*
- *TODO:
-  -fix fucking footer
-    -hamburger button is not a button fix it
-  -hamburger button must rotate on click
-  -remove tabindex from the map
-*/
