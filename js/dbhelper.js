@@ -25,7 +25,8 @@ class DBHelper {
         // console.log(callback);
         callback(null, restaurants);
       } else { // Oops!. Got an error from server.
-        const error = (`Request failed. Returned status of ${xhr.status}`);
+        const error = (`[Request failed. Returned status of ${xhr.status}]`);
+        console.log(error);
         callback(error, null);
       }
     };
